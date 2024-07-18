@@ -6,7 +6,7 @@ import { SharedArray } from 'k6/data';
 
 //POBRANIE PLIKU CSV
 const podatki = new SharedArray('Podatki', function() {
-  return open('podatek.csv').split('\n').slice(1);
+  return open('csvv.csv').split('\n').slice(1);
 });
 
 //DANE LOG, URL
@@ -55,9 +55,6 @@ export default function () {
     console.error('1, 3, 10');
     return;
   }
-  
-  const selectedTaxes = getRandomTaxes(n);
-  sendRequests(selectedTaxes);
 
   sleep(1);
 }
