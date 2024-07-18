@@ -13,6 +13,7 @@ const podatki = new SharedArray('Podatki', function() {
 const username = "platforma";
 const password = "platforma99";
 const portalUrl = "https://test.pm.bydgoszcz.pl";
+const csvLink = "csvv.csv";
 
 export const options = {
   vus: 1,
@@ -32,7 +33,7 @@ export function setup() {
 
   let res = http.get(portalUrl, params);
   check(res, {
-    'status is 200': (r) => r.status === 200,
+    'status authorization: 200': (r) => r.status === 200,
   });
 
   }
@@ -43,10 +44,31 @@ function sendRequests(taxes) {
   for (const tax of taxes) {
     const response = http.get(url, { params: { query: tax } });
     check(response, {
-      'status is 200': (r) => r.status === 200,
+      'status authorization: 200': (r) => r.status === 200,
     });
   }
 }
+
+//CZYTANIE Z PLIKU CSV
+function readCSV() {
+  const file = csvLink;
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+      const rows = event.target.result.split('\n').map(row => row.split(','));
+      const columns = Array.from({ length: rows[0].length }, () => []);
+
+      rows.forEach(row => {
+          row.forEach((cell, index) => {
+              columns[index].push(cell.trim());
+          });
+      });
+      console.log(check(response, {'Status 200': (r) => r.status === 200}));
+  };
+
+  reader.readAsText(file);
+}
+
 
 //WYWOŁANIE ILU WIERSZY (1, 3, 10)
 export default function () {
