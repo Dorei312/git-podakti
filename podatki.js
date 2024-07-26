@@ -13,11 +13,12 @@ const podatki = new SharedArray('Podatki', function() {
 const username = "platforma";
 const password = "platforma99";
 const portalUrl = "https://test.pm.bydgoszcz.pl";
-const csvLink = "csvv.csv";
+const csvLink = "https://pm.bydgoszcz.pl/wyszukiwanie/?search=podatek";
 
+//SCENARIO
 export const options = {
   vus: 1,
-  duration: '1s',
+  iterations: 1,
 };
 
 //DOSTĘP - HASŁO LOGIN, AUTORYZACJA, B64ENCODE
@@ -51,7 +52,7 @@ function sendRequests(taxes) {
 
 //CZYTANIE Z PLIKU CSV
 function readCSV() {
-  const file = csvLink;
+  const file = http.get(csvLink);
   const reader = new FileReader();
 
   reader.onload = function(event) {
